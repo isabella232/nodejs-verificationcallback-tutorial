@@ -8,9 +8,8 @@ Sinch has 2 ways to secure your app, the first one that this blog post will dig 
 ### Webhooks
 This is the recommended way of securing your verification. Using Sinch Verification we send two events to your back end (if configured), one when someone wants to create a verification, one when the client tried to authenticate. 
 
-We chose this approach for a couple of reasons, the first was to enable developers to easy try it out with no backend, the second we did want either have the key in app and for a process that most likely will only occur once in an install life time the token generation with oath seemed like a over complicated way of doing it. 
+We chose this approach for a couple of reasons, the first was to enable developers to easy try it out with no backend, the second we did want either have the key in app and for a process that most likely will only occur once in an install life time the token generation with oath seemed like a over complicated way of doing it. So we landed on web hooks. Its a simple enought concept and in our view makes perfect sense to have an evendriven model to handle this.
 
-So we landed on web hooks
 ![](http://www.websequencediagrams.com/files/render?link=kIkrYWmlPWM80o2Hh8NS)
 
 You can verify that the request is from us by signing the request you receive and compare the hash https://www.sinch.com/using-rest/#Authorization or if you prefer ship a custom variable like your own Token for you own api requests and validate that in the custom variables
