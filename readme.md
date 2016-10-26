@@ -1,4 +1,4 @@
-# Securing your Verifications when using Sinch
+# Securing your Verifications when using Node.JS
 
 In this tutorial, we'll show you the different ways you can ensure that your app is secure and nobody is using your account for fraudulent verifications.
 
@@ -8,18 +8,15 @@ Sinch offers 2 ways to secure your app, the first one is the [Callback/webhook](
 ### Webhooks
 This is the recommended way of securing your verification. Using Sinch Verification we send two events to your back end (if configured), one when someone wants to create a verification and one when the client tried to authenticate.
 
-We chose this approach for a couple of reasons, the first was to enable developers to easy try it out with no backend, the second was that we did not want to have the key and secret in-app, and Oauth seemed overcomplicated for a process that will most likely only occur once.
+We chose this approach for a couple of reasons, the first was to enable developers to easy try it out with no backend, the second was that we did not want to have the key and secret in-app, and OAuth seemed over complicated for a process that will most likely only occur once.
 
 ![](http://www.websequencediagrams.com/files/render?link=kIkrYWmlPWM80o2Hh8NS)
 
-
-You can verify that the request is from us by signing the request you receive and comparing the hash https://www.sinch.com/using-rest/#Authorization, or if you prefer, ship a custom variable like your Token for your own api requests and validate that in the custom variables.
+You can verify that the request from us by signing the request you receive and comparing the hash https://www.sinch.com/using-rest/#Authorization, or if you prefer, ship a custom variable like your Token for your own api requests and validate that in the custom variables.
 
 ## Using node to respond to your callbacks
-Let's set up a backend to allow or deny a verification attempt. Today we will use node, and create the requests using our [api explorer](https://www.sinch.com/dashboard/#/api) that you'll find in the dashboard. 
+Today I will set up a backend to allow or deny a verification attempt using Node.JS and [Express](http://expressjs.com/) . For testing and generating requests I will use our [api explorer](https://www.sinch.com/dashboard/#/api) that you'll find in the dashboard 
 ![](images/apiexplorer.png)
-
-We're going to set up the node app with [express](http://expressjs.com/), which is an awesome framework for MVC patterns. 
 
 - Create the app
 ```bash
@@ -31,7 +28,7 @@ Accept all defaults.
 npm install --save express body-parser
 ```
 
-With basic wiring setup we can start writing some code. As I previously mentioned, when a verification reqeust is made you get that event posted to an endpoint. That will be a POST request and contain something like this:
+With this basic setup I can start writing some code. As I previously mentioned, when a verification request is made you get that event posted to an URL. That will be a POST request and contain data similar to below:
 ```
 {
     "id":"1234567890",
@@ -43,9 +40,11 @@ With basic wiring setup we can start writing some code. As I previously mentione
 }
 ```
 
-There are a few parameters here that I want to point out -- we need the event to know what kind of event is being sent to us and we need either the identity or enough custom data to inform us of whether the reqeusts should be allowed or denied.
+There are a few parameters here that I want to point out 
+- The event to know what kind of event is being sent to us 
+- Identity or enough custom data to inform us of whether the requests should be allowed or denied.
 
-Creaet a file named index.js and start hook express:
+In index.js I create some basic config and routes:
 
 index.json
 ```
@@ -74,9 +73,9 @@ app.listen(port);
 module.exports = app;
 ```
 
-Using PostMan, you can post to the localhost:8080/sinch and see the message response, but that's not very exciting so here's what we want to do:
+Using PostMan, I post to the localhost:8080/sinch and see the message response,not very exciting so here's what I want to do:
 
-1. Create an endpoint that is secured with your own custom login token for users (i.e oauth2 or your custom auth scheme) where you add numbers you want to verify
+1. Create an endpoint that is secured with your own custom login token for users (i.e oauth2 or your custom auth scheme) where I add numbers you want to verify
 
 2. Store in a database (in this tutorial I will just use in memory as an example)
 
@@ -88,7 +87,7 @@ Using PostMan, you can post to the localhost:8080/sinch and see the message resp
 
 
 ### Endpoint to add numbers
-Add a global varialbe to hold numbers:
+Add a global variable to hold numbers:
 
 ```javascript
 var numbers = [];
@@ -101,10 +100,10 @@ router.post('/addnumber', function (req, res) {
 });
 ```
 
-The code above doesn't do anything fancy, just pushes a new number in to the array. We will use this in the webhook endpoint next.
+The code above doesn't do anything fancy, just pushes a new number in to the array. I will use this in the web-hook endpoint next.
 
-### Responding to webhook events
-Sinch posts every event to the same endpoint, so the first task is to detemine if the event is a Request or Result event. The requestEvent is triggered when someone starts a verification, the result event is triggered every time someone tries to verify a code.
+### Responding to web-hook events
+Sinch posts every event to the same endpoint, so the first task is to determine if the event is a Request or Result event. The requestEvent is triggered when someone starts a verification, the result event is triggered every time someone tries to verify a code.
 
 
 ```javascript
@@ -133,7 +132,7 @@ router.post('/sinch', function (req, res) {
   }
 });
 ```
-If the function lookUpNumber returns true, allow it, otherwise deny. This is a time when I really miss c# with its lambda! It'd be so nice to be able to query the array for the key instead of a custom function. But today we're working with node so let's implement the custom function.
+If the function lookUpNumber returns true, allow it, otherwise deny. This is a time when I really miss c# with its lambda! It'd be so nice to be able to query the array for the key instead of a custom function. But today I am working with node so let's implement the custom function.
 
 ```javascript
 function lookUpNumber(number) {
@@ -200,7 +199,7 @@ Ok, hit the number again and this time I get the expected allow!
 ![](images/ngrokallow.png)
 
 # What's next?
-In order to use our verificaiton SDK, next steps for a real app would be to add logging, support for more types of verificaitons, and of course persistence and real security on my add numbers end points.
+In order to use our verificaiton SDK, next steps for a real app would be to add logging, support for more types of verificaitons, and of course persistence and real security on my add numbers end points. To add some more security and verify the requests I get from the sinch plattform using our [Request module ](https://www.npmjs.com/package/sinch-request)
 
 Would you be interested in a complete backend or are you more interested in snippets like today or perhaps even shorter? Let me know in the comments or tweet me at @cjsinch!
 

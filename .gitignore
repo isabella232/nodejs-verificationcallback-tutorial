@@ -3,5 +3,5 @@
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-typings/
-node_modules/
+typings/*
+node_modules/*
