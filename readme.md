@@ -173,7 +173,7 @@ function removeNumber(number) {
 }
 ```
 
-Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my [previous post about ngrok](https://www.sinch.com/tutorials/getting-second-number-testing-sinch-callbackswebhooks-ngrok/"previous post about ngrok" and why I love it.
+Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my [previous post about ngrok](https://www.sinch.com/tutorials/getting-second-number-testing-sinch-callbackswebhooks-ngrok/"previous post about ngrok") and why I love it.
 
 Start up ngrok:
 
