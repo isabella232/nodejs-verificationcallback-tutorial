@@ -10,9 +10,9 @@ This is the recommended way of securing your verification. Using Sinch Verificat
 
 We chose this approach for a couple of reasons, the first was to enable developers to easy try it out with no backend, the second was that we did not want to have the key and secret in-app, and OAuth seemed over complicated for a process that will most likely only occur once.
 
-![](http://www.websequencediagrams.com/files/render?link=kIkrYWmlPWM80o2Hh8NS)
+<img src="http://www.websequencediagrams.com/files/render?link=kIkrYWmlPWM80o2Hh8NS">
 
-You can verify that the request from us by signing the request you receive and comparing the hash https://www.sinch.com/using-rest/#Authorization, or if you prefer, ship a custom variable like your Token for your own api requests and validate that in the custom variables.
+You can verify that the request is from us by signing the request you receive and comparing the hash https://www.sinch.com/using-rest/#Authorization, or if you prefer, ship a custom variable like your Token for your own api requests and validate that in the custom variables.
 
 ## Using node to respond to your callbacks
 Today I will set up a backend to allow or deny a verification attempt using Node.JS and [Express](http://expressjs.com/) . For testing and generating requests I will use our [api explorer](https://www.sinch.com/dashboard/#/api) that you'll find in the dashboard 
