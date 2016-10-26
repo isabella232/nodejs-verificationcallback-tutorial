@@ -173,7 +173,7 @@ function removeNumber(number) {
 }
 ```
 
-Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my previous post about ngrok and why I love it: [insert link] 
+Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my [previous post about ngrok](https://www.sinch.com/tutorials/getting-second-number-testing-sinch-callbackswebhooks-ngrok/"previous post about ngrok" and why I love it.
 
 Start up ngrok:
 
@@ -197,7 +197,7 @@ Ok, hit the number again and this time I get the expected allow!
 ![](images/ngrokallow.png)
 
 # What's next?
-In order to use our verificaiton SDK, next steps for a real app would be to add logging, support for more types of verificaitons, and of course persistence and real security on my add numbers end points. To add some more security and verify the requests I get from the sinch plattform using our [Request module ](https://www.npmjs.com/package/sinch-request)
+In order to use our verificaiton SDK, next steps for a real app would be to add logging, support for more types of verificaitons, and of course persistence and real security on my added numbers end points. To add some more security and verify the requests I get from the sinch plattform using our [request module ](https://www.npmjs.com/package/sinch-request).
 
 Would you be interested in a complete backend or are you more interested in snippets like today or perhaps even shorter? Let me know in the comments or tweet me at @cjsinch!
 
