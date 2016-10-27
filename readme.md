@@ -29,7 +29,7 @@ npm install --save express body-parser
 ```
 
 With this basic setup I can start writing some code. As I previously mentioned, when a verification request is made you get that event posted to an URL. That will be a POST request and contain data similar to below:
-```
+```javascript
 {
     "id":"1234567890",
     "event": "VerificationRequestEvent",
@@ -47,7 +47,7 @@ There are a few parameters here that I want to point out
 In index.js I create some basic config and routes:
 
 index.json
-```
+```javascript
 var express    = require('express');        // call express
 var bodyParser = require('body-parser');
 
@@ -173,7 +173,7 @@ function removeNumber(number) {
 }
 ```
 
-Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my [previous post about ngrok](https://www.sinch.com/tutorials/getting-second-number-testing-sinch-callbackswebhooks-ngrok/"previous post about ngrok") and why I love it.
+Now I just need to test! To do that, I will use [ngrok](https://ngrok.com/ "ngrok"), , which if you havent set up, you'll want to. Check out my [previous post about ngrok](https://www.sinch.com/tutorials/getting-second-number-testing-sinch-callbackswebhooks-ngrok/) and why I love it.
 
 Start up ngrok:
 
